@@ -288,11 +288,14 @@
 
 - (void)enterText:(NSString *)text intoViewWithAccessibilityLabel:(NSString *)label traits:(UIAccessibilityTraits)traits expectedResult:(NSString *)expectedResult
 {
+    const NSTimeInterval enterTextDelay = 0.1f;
+    
     UIView *view = nil;
     UIAccessibilityElement *element = nil;
     
     [self waitForAccessibilityElement:&element view:&view withLabel:label value:nil traits:traits tappable:YES];
     [self tapAccessibilityElement:element inView:view];
+    [self waitForTimeInterval:enterTextDelay];
     [self enterTextIntoCurrentFirstResponder:text fallbackView:view];
     
     // We will perform some additional validation if the view is UITextField or UITextView.
