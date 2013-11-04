@@ -136,7 +136,12 @@ static const void *KIFRunLoopModesKey = &KIFRunLoopModesKey;
     UIGraphicsEndImageContext();
     
     
-    NSString *imageName = [NSString stringWithFormat:@"%@, line %lu", [filename lastPathComponent], (unsigned long)lineNumber];
+    NSString *imageName = [filename lastPathComponent];
+    
+    if (lineNumber > 0) {
+        imageName = [imageName stringByAppendingFormat:@", line %lu", (unsigned long)lineNumber];
+    }
+    
     if (description) {
         imageName = [imageName stringByAppendingFormat:@", %@", description];
     }

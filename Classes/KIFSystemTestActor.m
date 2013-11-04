@@ -90,4 +90,12 @@
     }
 }
 
+- (void)captureScreenshotNamed:(NSString *)fileName
+{
+    NSError *error;
+    if (![[UIApplication sharedApplication] writeScreenshotForLine:0 inFile:fileName description:nil error:&error]) {
+        [self failWithError:error stopTest:NO];
+    }
+}
+
 @end
