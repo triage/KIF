@@ -37,6 +37,53 @@
                BlueprintName = "KIF Tests"
                ReferencedContainer = "container:KIF.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "CascadingFailureTests">
+               </Test>
+               <Test
+                  Identifier = "CompositionTests">
+               </Test>
+               <Test
+                  Identifier = "GestureTests">
+               </Test>
+               <Test
+                  Identifier = "LandscapeTests">
+               </Test>
+               <Test
+                  Identifier = "LongPressTests">
+               </Test>
+               <Test
+                  Identifier = "ModalViewTests">
+               </Test>
+               <Test
+                  Identifier = "SearchFieldTests">
+               </Test>
+               <Test
+                  Identifier = "SpecificControlTests">
+               </Test>
+               <Test
+                  Identifier = "SystemTests">
+               </Test>
+               <Test
+                  Identifier = "WaitForViewTests">
+               </Test>
+               <Test
+                  Identifier = "WaitForTappableViewTests">
+               </Test>
+               <Test
+                  Identifier = "WaitForAbscenceTests">
+               </Test>
+               <Test
+                  Identifier = "TypingTests">
+               </Test>
+               <Test
+                  Identifier = "TappingTests">
+               </Test>
+               <Test
+                  Identifier = "TableViewTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

@@ -582,27 +582,32 @@
         [self failWithError:[NSError KIFErrorWithFormat:@"View is not a collection view"] stopTest:YES];
     }
     
-    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    NSInteger section = indexPath.section;
+    NSInteger item    = indexPath.item;
     
     // If section < 0, search from the end of the table.
-    if (indexPath.section < 0) {
-        indexPath = [NSIndexPath indexPathForItem:indexPath.item inSection:collectionView.numberOfSections + indexPath.section];
+    if (section < 0) {
+        section += collectionView.numberOfSections;
     }
     
     // If item < 0, search from the end of the section.
-    if (indexPath.item < 0) {
-        indexPath = [NSIndexPath indexPathForItem:[collectionView numberOfItemsInSection:indexPath.section] + indexPath.item inSection:indexPath.section];
+    if (item < 0) {
+        NSUInteger itemCount = [collectionView numberOfItemsInSection:section];
+        item += itemCount;
     }
     
+    if (section >= collectionView.numberOfSections) {
+        [self failWithError:[NSError KIFErrorWithFormat:@"Section %d is not found in collection view", section] stopTest:YES];
+    }
+    
+    if (item >= [collectionView numberOfItemsInSection:section]) {
+        [self failWithError:[NSError KIFErrorWithFormat:@"Item %d is not found in section %d of collection view", item, section] stopTest:YES];
+    }
+    
+    indexPath = [NSIndexPath indexPathForItem:item inSection:section];
+    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    
     if (!cell) {
-        if (indexPath.section >= collectionView.numberOfSections) {
-            [self failWithError:[NSError KIFErrorWithFormat:@"Section %d is not found in collection view", indexPath.section] stopTest:YES];
-        }
-        
-        if (indexPath.item >= [collectionView numberOfItemsInSection:indexPath.section]) {
-            [self failWithError:[NSError KIFErrorWithFormat:@"Item %d is not found in section %d of collection view", indexPath.item, indexPath.section] stopTest:YES];
-        }
-        
         [collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
         [self waitForTimeInterval:0.5];
         cell = [collectionView cellForItemAtIndexPath:indexPath];
