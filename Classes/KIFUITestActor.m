@@ -592,8 +592,7 @@
     
     // If item < 0, search from the end of the section.
     if (item < 0) {
-        NSUInteger itemCount = [collectionView numberOfItemsInSection:section];
-        item += itemCount;
+        item += [collectionView numberOfItemsInSection:section];
     }
     
     if (section >= collectionView.numberOfSections) {
@@ -605,13 +604,9 @@
     }
     
     indexPath = [NSIndexPath indexPathForItem:item inSection:section];
+    [collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally | UICollectionViewScrollPositionCenteredVertically animated:YES];
+    [self waitForTimeInterval:0.5];
     UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-    
-    if (!cell) {
-        [collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-        [self waitForTimeInterval:0.5];
-        cell = [collectionView cellForItemAtIndexPath:indexPath];
-    }
     
     if (!cell) {
         [self failWithError:[NSError KIFErrorWithFormat: @"Collection view cell at index path %@ not found", indexPath] stopTest:YES];
@@ -619,7 +614,6 @@
     
     CGRect cellFrame = [cell.contentView convertRect:cell.contentView.frame toView:collectionView];
     [collectionView tapAtPoint:CGPointCenteredInRect(cellFrame)];
-    
 }
 
 - (void)swipeViewWithAccessibilityLabel:(NSString *)label inDirection:(KIFSwipeDirection)direction
