@@ -69,7 +69,7 @@
 - (void)captureScreenshotWithDescription:(NSString *)description;
 
 /*!
- @abstract Captures a screenshot of the current screen and writes it to disk with the given name.
+ @abstract Captures a screenshot of the current screen and writes it to disk with the given name. The screenshot is placed in subfolder named {iPhone|iPad}-{systemVersion} depending which device and OS the app is being tested on.
  @discussion This step will fail if the @c KIF_SCREENSHOTS environment variable is not set or if the screenshot cannot be written to disk.
  @param description The name of the file to write to disk.
  */
