@@ -85,7 +85,21 @@
 - (void)captureScreenshotWithDescription:(NSString *)description
 {
     NSError *error;
-    if (![[UIApplication sharedApplication] writeScreenshotForLine:(NSUInteger)self.line inFile:self.file description:description error:&error]) {
+    if (![[UIApplication sharedApplication] writeScreenshotForLine:(NSUInteger)self.line filename:[self.file lastPathComponent] description:description error:&error]) {
+        [self failWithError:error stopTest:NO];
+    }
+}
+
+- (void)captureScreenshotNamed:(NSString *)fileName
+{
+    NSError *error;
+    
+    NSString *idiom = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? @"iPad" : @"iPhone";
+    NSString *systemVersion = [[UIDevice currentDevice] systemVersion];
+    NSString *subfolderName = [NSString stringWithFormat:@"%@-%@", idiom, systemVersion];
+    NSString *path = [subfolderName stringByAppendingPathComponent:fileName];
+    
+    if (![[UIApplication sharedApplication] writeScreenshotForLine:0 filename:path description:nil error:&error]) {
         [self failWithError:error stopTest:NO];
     }
 }
